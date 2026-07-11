@@ -105,6 +105,73 @@ canvas{display:block;}
 #bDash{right:calc(4vw + 76px);bottom:calc(5vh - 26px);border-color:#fff;color:#fff;width:56px;height:56px;}
 #bCrouch{left:calc(4vw + 132px);bottom:5vh;border-color:var(--dim);color:var(--ink);width:56px;height:56px;}
 #bAct{right:calc(4vw + 152px);bottom:calc(5vh + 70px);border-color:var(--cyan);color:var(--cyan);width:56px;height:56px;display:none;}
+
+/* ---------- DOSSIER / BIO SCREEN ---------- */
+#dossier{position:fixed;inset:0;background:
+  radial-gradient(1200px 600px at 50% 110%,rgba(178,107,255,.08),transparent 60%),
+  radial-gradient(900px 500px at 10% -10%,rgba(79,209,197,.08),transparent 60%),
+  var(--void);
+  display:none;z-index:58;padding:clamp(10px,2.6vw,34px);overflow-y:auto;}
+#dossier .dwrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+#dossier .dtitle{font-family:'Orbitron',monospace;font-weight:900;letter-spacing:.24em;font-size:clamp(16px,3vw,26px);color:var(--ink);}
+#dossier .dtitle b{color:var(--violet);}
+#dossier .dsub{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--cyan);text-transform:uppercase;}
+#dossier .dgrid{display:grid;grid-template-columns:minmax(220px,320px) 1fr;gap:16px;}
+@media (max-width:760px){#dossier .dgrid{grid-template-columns:1fr;}}
+.dpanel{background:var(--panel);border:1px solid rgba(79,209,197,.2);padding:14px;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);}
+#bioCanvasWrap{position:relative;width:100%;aspect-ratio:3/4;background:radial-gradient(circle at 50% 30%,rgba(79,209,197,.12),transparent 65%),#040608;
+  border:1px solid rgba(79,209,197,.25);overflow:hidden;}
+#bioCanvasWrap canvas{width:100%;height:100%;display:block;}
+#bioCanvasWrap .scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  opacity:.65;animation:scanmove 2.6s linear infinite;}
+@keyframes scanmove{0%{top:0;}100%{top:100%;}}
+#bioTag{margin-top:8px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--dim);text-align:center;}
+#vidPreview{position:relative;width:100%;aspect-ratio:16/9;background:#02040a;border:1px solid rgba(255,122,26,.3);overflow:hidden;margin-top:10px;}
+#vidPreview video{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.15) contrast(1.08);}
+#vidPreview .vidlabel{position:absolute;left:8px;top:6px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--amber);
+  background:rgba(0,0,0,.5);padding:2px 8px;}
+#vidPreview .vidmiss{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;
+  font-size:10px;letter-spacing:.16em;color:var(--dim);text-align:center;padding:14px;}
+.dtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.dtab{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--dim);background:rgba(0,0,0,.4);
+  border:1px solid rgba(79,209,197,.2);padding:8px 14px;cursor:pointer;}
+.dtab.sel{color:var(--void);background:var(--cyan);border-color:var(--cyan);font-weight:700;}
+.dpane{display:none;font-family:'Rajdhani',sans-serif;font-size:14px;line-height:1.65;color:var(--ink);}
+.dpane.sel{display:block;}
+.dpane h3{font-family:'Orbitron',monospace;font-size:12px;letter-spacing:.2em;color:var(--amber);margin-bottom:8px;}
+.dpane ul{list-style:none;margin:0;padding:0;}
+.dpane li{padding:5px 0 5px 18px;position:relative;border-bottom:1px solid rgba(255,255,255,.05);color:var(--ink);font-size:13px;}
+.dpane li::before{content:"▸";position:absolute;left:0;color:var(--cyan);}
+.dpane li b{color:var(--violet);}
+.skillbar{height:6px;background:rgba(255,255,255,.08);margin-top:4px;position:relative;}
+.skillbar i{position:absolute;inset:0;background:linear-gradient(90deg,var(--cyan),var(--violet));transform-origin:left;}
+#confirmDeploy{font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.3em;font-size:14px;color:var(--void);
+  background:var(--amber);border:0;padding:15px 42px;cursor:pointer;align-self:center;margin-top:6px;
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);}
+#confirmDeploy:active{transform:scale(.97);}
+#dBack{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--dim);background:transparent;
+  border:1px solid rgba(255,255,255,.15);padding:9px 18px;cursor:pointer;align-self:center;}
+
+/* ---------- SCORE TALLY ---------- */
+.tally{width:min(480px,92vw);font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.05em;
+  border:1px solid rgba(79,209,197,.25);background:rgba(0,0,0,.35);margin:6px 0;}
+.tally .trow{display:flex;justify-content:space-between;padding:7px 16px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--dim);}
+.tally .trow span:last-child{color:var(--ink);font-weight:600;}
+.tally .trow.total{border-top:1px solid rgba(79,209,197,.3);border-bottom:none;color:var(--cyan);font-size:14px;padding-top:10px;}
+.tally .trow.total span:last-child{color:var(--amber);font-family:'Orbitron',monospace;letter-spacing:.1em;}
+#zoneTally{position:fixed;left:50%;top:30%;transform:translate(-50%,-14px);z-index:45;
+  opacity:0;pointer-events:none;transition:opacity .4s,transform .4s;text-align:center;}
+#zoneTally.show{opacity:1;transform:translate(-50%,0);}
+#zoneTally .zthead{font-family:'Orbitron',monospace;font-size:12px;letter-spacing:.3em;color:var(--cyan);margin-bottom:6px;
+  text-shadow:0 0 14px rgba(79,209,197,.6);}
+
+/* ---------- ATMOSPHERE OVERLAYS ---------- */
+#radOverlay{position:fixed;inset:0;pointer-events:none;z-index:24;opacity:0;transition:opacity .8s;
+  background:radial-gradient(ellipse at center,rgba(140,255,80,.05) 0%,rgba(80,200,40,.14) 100%);}
+#musicBtn{position:fixed;top:12px;right:12px;z-index:31;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;
+  color:var(--dim);background:rgba(8,12,16,.6);border:1px solid rgba(79,209,197,.25);padding:6px 10px;cursor:pointer;display:none;}
+#musicBtn.on{color:var(--cyan);border-color:var(--cyan);}
 </style>
 </head>
 <body>
@@ -124,6 +191,69 @@ canvas{display:block;}
   <button id="deploy">▸ DEPLOY SYM-13</button>
 </div>
 
+<!-- ---------- DOSSIER / ASSET BIO SCREEN (opens after DEPLOY SYM-13) ---------- -->
+<div id="dossier">
+  <div class="dwrap">
+    <div class="dtitle">ASSET DOSSIER · <b>SYM-13 "RENEGADE"</b></div>
+    <div class="dsub">SYMBIOTE-BONDED INFILTRATION UNIT · CLEARANCE: VERTASCAN BLACK</div>
+    <div class="dgrid">
+      <div>
+        <div class="dpanel">
+          <div id="bioCanvasWrap"><div class="scan"></div></div>
+          <div id="bioTag">LIVE CHASSIS SCAN // ninja.glb</div>
+        </div>
+        <div class="dpanel" id="vidPreview" style="padding:0;">
+          <div class="vidlabel">FIELD FOOTAGE</div>
+          <video id="previewVid" muted loop autoplay playsinline></video>
+        </div>
+      </div>
+      <div class="dpanel">
+        <div class="dtabs">
+          <button class="dtab sel" data-t="bio">BIO</button>
+          <button class="dtab" data-t="persona">PERSONA</button>
+          <button class="dtab" data-t="skills">SKILLS</button>
+          <button class="dtab" data-t="tasks">TASK DOSSIER</button>
+        </div>
+        <div class="dpane sel" data-p="bio">
+          <h3>UNIT BIOGRAPHY</h3>
+          <p>Designation SYM-13, codename <b style="color:var(--amber)">RENEGADE</b>, is a symbiote-bonded infiltration
+          asset grown from black-site nanite culture VERTASCAN-9. Bonded at the neural core, the symbiote grants
+          reactive cloaking, kinetic dash reflexes, and a self-healing energy lattice. Deployed against megacity
+          blacksites where conventional operatives fail extraction.</p>
+        </div>
+        <div class="dpane" data-p="persona">
+          <h3>PERSONA PROFILE</h3>
+          <ul>
+            <li><b>Temperament:</b> Silent, methodical, patient under fire.</li>
+            <li><b>Doctrine:</b> Shadow-first — avoid contact, strike only when discovery is certain.</li>
+            <li><b>Bond Status:</b> Symbiote lattice stable · voice suppressed · combat instinct autonomous.</li>
+            <li><b>Handler Note:</b> Responds only to mission-critical directives. Do not engage in unnecessary contact.</li>
+          </ul>
+        </div>
+        <div class="dpane" data-p="skills">
+          <h3>SKILL MATRIX</h3>
+          <ul style="list-style:none;padding:0;">
+            <li>STEALTH TAKEDOWN<div class="skillbar"><i style="transform:scaleX(.92)"></i></div></li>
+            <li style="margin-top:8px;">BLADE COMBAT<div class="skillbar"><i style="transform:scaleX(.8)"></i></div></li>
+            <li style="margin-top:8px;">SHURIKEN ACCURACY<div class="skillbar"><i style="transform:scaleX(.75)"></i></div></li>
+            <li style="margin-top:8px;">SYMBIOTE CLOAK<div class="skillbar"><i style="transform:scaleX(.85)"></i></div></li>
+            <li style="margin-top:8px;">KINETIC DASH<div class="skillbar"><i style="transform:scaleX(.7)"></i></div></li>
+          </ul>
+        </div>
+        <div class="dpane" data-p="tasks">
+          <h3>MISSION TASK DOSSIER</h3>
+          <ul id="taskList"></ul>
+        </div>
+      </div>
+    </div>
+    <button id="confirmDeploy">▸ CONFIRM DEPLOYMENT</button>
+    <button id="dBack">◂ BACK TO BOOT</button>
+  </div>
+</div>
+
+<audio id="ost" loop preload="auto"></audio>
+<button id="musicBtn">♫ OST</button>
+
 <div id="hud">
   <div class="hpanel" id="vitals">
     <div class="tag">INTEGRITY</div><div class="bar" id="hpbar"><i></i></div>
@@ -136,7 +266,8 @@ canvas{display:block;}
   <div id="toast"></div>
   <div id="keys">A/D MOVE · SPACE JUMP×2 · S CROUCH · SHIFT DASH · J SLASH · K SHURIKEN · C CLOAK · E INTERACT</div>
 </div>
-<div id="vignette"></div><div id="dmgflash"></div>
+<div id="vignette"></div><div id="dmgflash"></div><div id="radOverlay"></div>
+<div id="zoneTally"><div class="zthead"></div><div class="tally" id="zoneTallyBody"></div></div>
 
 <div id="touch">
   <div id="stick"><div id="nub"></div></div>
@@ -148,8 +279,8 @@ canvas{display:block;}
   <div class="tbtn" id="bAct">USE</div>
 </div>
 
-<div class="end" id="win"><h2>EXTRACTION COMPLETE</h2><p id="winStats"></p><p>THE ORIGIN CORE AWAITS BENEATH THE MEGACITY.</p><button onclick="location.reload()">REDEPLOY</button></div>
-<div class="end" id="lose"><h2>SIGNAL LOST</h2><p>SYM-13 NEURAL CORE FLATLINED</p><button onclick="location.reload()">REDEPLOY</button></div>
+<div class="end" id="win"><h2>EXTRACTION COMPLETE</h2><div class="tally" id="winStats"></div><p>THE ORIGIN CORE AWAITS BENEATH THE MEGACITY.</p><button onclick="location.reload()">REDEPLOY</button></div>
+<div class="end" id="lose"><h2>SIGNAL LOST</h2><p>SYM-13 NEURAL CORE FLATLINED</p><div class="tally" id="loseStats"></div><button onclick="location.reload()">REDEPLOY</button></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" onerror="window.__threeFail=1"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js" onerror="window.__loaderFail=1"></script>
@@ -322,10 +453,10 @@ function shadowZone(x1,x2,top){
 
 /* ---------- LEVEL ZONES · panorama backdrops (webp files beside this HTML) ---------- */
 const ZONES=[
- {x1:-8, x2:60, name:'COVERT PERIMETER',     img:'covert_military_perimeter_panorama.webp',fog:0x0a0e1a,bg:0x070a12,d:0.030,storm:false},
- {x1:60, x2:135,name:'HANGAR 4',             img:'hangar4_empty_panorama.webp',            fog:0x05080e,bg:0x030509,d:0.036,storm:false},
- {x1:135,x2:170,name:'BLACKSITE RIDGE',      img:'generated_image.webp',                   fog:0x0c0a18,bg:0x090715,d:0.027,storm:false},
- {x1:170,x2:196,name:'ORBITAL SPIRE SUMMIT', img:'orbital_spire_summit.webp',              fog:0x0e1122,bg:0x0b0e1e,d:0.024,storm:true}];
+ {x1:-8, x2:60, name:'COVERT PERIMETER',     img:'covert_military_perimeter_panorama.webp',fog:0x0a0e1a,bg:0x070a12,d:0.030,storm:false,atmo:'fog'},
+ {x1:60, x2:135,name:'HANGAR 4',             img:'hangar4_empty_panorama.webp',            fog:0x05080e,bg:0x030509,d:0.036,storm:false,atmo:'smoke'},
+ {x1:135,x2:170,name:'BLACKSITE RIDGE',      img:'generated_image.webp',                   fog:0x0c0a18,bg:0x090715,d:0.027,storm:false,atmo:'radiation'},
+ {x1:170,x2:196,name:'ORBITAL SPIRE SUMMIT', img:'orbital_spire_summit.webp',              fog:0x0e1122,bg:0x0b0e1e,d:0.024,storm:true,atmo:'electro'}];
 /* horizontal alpha fade so adjacent panoramas blend instead of hard seams */
 const fadeC=document.createElement('canvas');fadeC.width=256;fadeC.height=4;
 (function(){const g=fadeC.getContext('2d');const gr=g.createLinearGradient(0,0,256,0);
@@ -369,7 +500,7 @@ function errInfo(err){
     return 'file unreadable — likely a Git-LFS pointer; commit the real binary (no LFS)';
   if(/fetch|network|failed/.test(m))return 'network/404 — check filename case and folder';
   return (err.message||'load failed').slice(0,70);}
-blog('Expecting beside HTML: ninja.glb · orb.glb · ZYTHERON_CRAFT.glb · 4 webp panoramas · shadow.jpg');
+blog('Expecting beside HTML: ninja.glb · orb.glb · ZYTHERON_CRAFT.glb · 4 webp panoramas · shadow.jpg · shadow.mp3 · shadow.mp4');
 
 /* ---------- RAIN ---------- */
 const RAIN_N=240,rainPos=new Float32Array(RAIN_N*3);
@@ -404,6 +535,109 @@ function updParticles(dt){
     pVel[j*3+1]+=GRAV*.25*dt;
     pPos[j*3]+=pVel[j*3]*dt;pPos[j*3+1]+=pVel[j*3+1]*dt;pPos[j*3+2]+=pVel[j*3+2]*dt;}
   pGeo.attributes.position.needsUpdate=true;pGeo.attributes.color.needsUpdate=true;}
+
+/* ---------- ATMOSPHERE FX: SMOKE / FOG WISPS / RADIATION / ELECTRO BEAMS ---------- */
+/* pooled soft-sprite smoke, reused for smoke stacks + fog wisps + radiation motes */
+const SMOKE_N=90;
+const smokeTex=(function(){const c=document.createElement('canvas');c.width=64;c.height=64;const g=c.getContext('2d');
+  const gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,.9)');gr.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle=gr;g.fillRect(0,0,64,64);return new THREE.CanvasTexture(c);})();
+const smokeGeo=new THREE.BufferGeometry();
+const smPos=new Float32Array(SMOKE_N*3),smCol=new Float32Array(SMOKE_N*3);
+smokeGeo.setAttribute('position',new THREE.BufferAttribute(smPos,3));
+smokeGeo.setAttribute('color',new THREE.BufferAttribute(smCol,3));
+for(let i=0;i<SMOKE_N;i++)smPos[i*3+1]=-999;
+const smokeMat=new THREE.PointsMaterial({size:2.2,map:smokeTex,vertexColors:true,transparent:true,opacity:.28,
+  depthWrite:false,blending:THREE.NormalBlending,sizeAttenuation:true});
+const smokePts=new THREE.Points(smokeGeo,smokeMat);scene.add(smokePts);
+let smHead=0;const smVel=new Float32Array(SMOKE_N*3),smLife=new Float32Array(SMOKE_N),smMaxLife=new Float32Array(SMOKE_N);
+function emitSmoke(x,y,z,color,spread,life,rise){
+  const j=smHead;smHead=(smHead+1)%SMOKE_N;
+  smPos[j*3]=x+(Math.random()-.5)*spread;smPos[j*3+1]=y;smPos[j*3+2]=(z!==undefined?z:0)+(Math.random()-.5)*spread;
+  smVel[j*3]=(Math.random()-.5)*.4;smVel[j*3+1]=rise||.55;smVel[j*3+2]=(Math.random()-.5)*.2;
+  smLife[j]=life||4;smMaxLife[j]=smLife[j];
+  tmpC.set(color||0x8a95a0);smCol[j*3]=tmpC.r;smCol[j*3+1]=tmpC.g;smCol[j*3+2]=tmpC.b;}
+function updSmoke(dt){
+  for(let j=0;j<SMOKE_N;j++){if(smLife[j]<=0)continue;
+    smLife[j]-=dt;
+    if(smLife[j]<=0){smPos[j*3+1]=-999;continue;}
+    smPos[j*3]+=smVel[j*3]*dt;smPos[j*3+1]+=smVel[j*3+1]*dt;smPos[j*3+2]+=smVel[j*3+2]*dt;
+    smVel[j*3]*=(1-dt*.3);}
+  smokeGeo.attributes.position.needsUpdate=true;smokeGeo.attributes.color.needsUpdate=true;}
+
+/* smoke stacks — Hangar 4 vents, always active */
+const smokeStacks=[{x:70,y:5.4},{x:98,y:11.5},{x:118,y:5.2}];
+smokeStacks.forEach(s=>{box(.8,1.4,.8,M.darkSteel,s.x,s.y-.7,-3.6);box(.5,.15,.5,M.amberGlow.clone(),s.x,s.y,-3.6);});
+let smokeStackT=0;
+
+/* fog wisps — Covert Perimeter ground haze, ambient */
+const fogWispSpots=[[6,.4],[22,.6],[38,.3],[50,.5]];
+let fogWispT=0;
+
+/* radiation zone — Blacksite Ridge: glowing barrels + rising green motes + geiger clicks */
+const radMat=mat(0x0c2a08,0x7dff3a,2.2,.5);
+const radBarrels=[];
+[[141,0],[157,0],[164,3.1]].forEach(([x,y])=>{
+  const m=box(.85,1.1,.85,radMat,x,y+.55,.4);
+  const cap=box(.95,.12,.95,M.steel,x,y+1.12,.4);
+  radBarrels.push({x,y:y+.6});});
+let geigerT=1.2;
+
+/* electro beams — Orbital Spire Summit: arcing hazard bolts between pylons */
+const electroPairs=[];
+function makeElectroPylon(x,y){box(.3,2.4,.3,M.darkSteel,x,y+1.2,0);box(.4,.3,.4,M.violetGlow.clone(),x,y+2.5,0);}
+[{x1:172,x2:177,y:0},{x1:186,x2:191,y:0}].forEach(p=>{
+  makeElectroPylon(p.x1,p.y);makeElectroPylon(p.x2,p.y);
+  const segN=9,pos=new Float32Array(segN*3);
+  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const line=new THREE.Line(geo,new THREE.LineBasicMaterial({color:COL.violet,transparent:true,opacity:.85,linewidth:2}));
+  scene.add(line);
+  electroPairs.push({...p,segN,pos,geo,line,t:0,on:true,cd:0});});
+function updElectro(dt){
+  for(const b of electroPairs){
+    b.t+=dt*26;
+    if(b.cd>0){b.cd-=dt;b.line.visible=Math.sin(perf*60)>0;}
+    else b.line.visible=true;
+    const y0=b.y+2.5;
+    for(let i=0;i<b.segN;i++){const f=i/(b.segN-1);
+      const x=b.x1+(b.x2-b.x1)*f;
+      const jitter=(i>0&&i<b.segN-1)?(Math.sin(b.t+i*2.3)+Math.sin(b.t*1.7+i))*.35:0;
+      b.pos[i*3]=x;b.pos[i*3+1]=y0+jitter;b.pos[i*3+2]=0;}
+    b.geo.attributes.position.needsUpdate=true;
+    /* hazard: touching the arc zaps the player */
+    if(!player.dead&&player.iT<=0&&player.x>b.x1-.4&&player.x<b.x2+.4&&Math.abs((player.y+1)-y0)<1.1){
+      hurtPlayer(Math.round(DIFF.bolt*.8),Math.sign(player.x-((b.x1+b.x2)/2))||1);
+      burst(player.x,y0,COL.violet,10,4,2,.5);b.cd=.35;noise(.1,.14,3200);}
+    if(Math.random()<dt*3){burst((b.x1+b.x2)/2+(Math.random()-.5)*(b.x2-b.x1),y0,COL.violet,1,1,.5,.3);}}}
+
+const radOverlayEl=document.getElementById('radOverlay');
+function updAtmosphere(dt){
+  const zi=curZoneIdx<0?0:curZoneIdx;const z=ZONES[zi];
+  /* smoke stacks: continuous ambient regardless of zone */
+  smokeStackT-=dt;
+  if(smokeStackT<=0){smokeStackT=.35;
+    const s=smokeStacks[Math.floor(Math.random()*smokeStacks.length)];
+    emitSmoke(s.x,s.y,-3.6,0x8a95a0,.6,5+Math.random()*2,.5+Math.random()*.3);}
+  /* denser smoke burst while inside Hangar 4 */
+  if(z.atmo==='smoke'&&Math.random()<dt*4){
+    emitSmoke(player.x+(Math.random()-.5)*20,0.2,0,0x6c7680,3,3.5,.4);}
+  /* fog wisps drifting at ground level in the Perimeter */
+  fogWispT-=dt;
+  if(z.atmo==='fog'&&fogWispT<=0){fogWispT=.5;
+    const sp=fogWispSpots[Math.floor(Math.random()*fogWispSpots.length)];
+    emitSmoke(sp[0]+(Math.random()-.5)*8,sp[1],0.6,0x3d5a66,4,4.5,.18);}
+  /* radiation: motes + geiger counter, intensity scales with proximity to barrels */
+  let radProx=0;
+  for(const b of radBarrels){const d=Math.abs(player.x-b.x);if(d<9)radProx=Math.max(radProx,1-d/9);}
+  radOverlayEl.style.opacity=z.atmo==='radiation'?(0.15+radProx*0.55):0;
+  if(z.atmo==='radiation'){
+    if(Math.random()<dt*3)for(const b of radBarrels)if(Math.random()<.4)
+      emitSmoke(b.x+(Math.random()-.5)*1.2,b.y,.4,0x7dff3a,.5,2.4,1.1);
+    geigerT-=dt*(1+radProx*9);
+    if(geigerT<=0){geigerT=.5+Math.random()*.4;tone(2400+Math.random()*600,2200,.02,'square',.05+radProx*.06);}}
+  /* electro beams: always animate in the summit */
+  updElectro(dt);
+  updSmoke(dt);}
 
 /* ---------- PROCEDURAL AUDIO ---------- */
 const AC=window.AudioContext||window.webkitAudioContext;
@@ -659,7 +893,15 @@ function dish(x,ry){
   d.position.set(x,2.8,-2.4);d.rotation.z=-.85;d.rotation.y=ry;scene.add(d);
   box(.14,.14,.14,M.redGlow.clone(),x,3.6,-2.4);}
 dish(174,.4);dish(179,-.5);dish(193,.2);
-blog('Zone props staged: crane rails · watchtowers · dish arrays','ok');
+/* Ridge: radiation hazard signage + rubble + cracked containment drums (image 4 vibe) */
+neonSign('CAUTION','#7dff3a',5,141,4.6,-1.4,'RADIOLOGICAL HAZARD');
+neonSign('CONTAINMENT BREACH','#7dff3a',6.5,160,4.9,-1.4,'DO NOT LINGER');
+for(const [rx,rz] of [[136,-1.6],[145,-2.2],[153,-1.4],[163,-2.6]]){
+  box(1.2+Math.random()*.8,.5+Math.random()*.6,1.1,M.darkSteel,rx,.3,rz);}
+/* Summit: cable conduits + warning strobes around the electro pylons */
+for(let i=0;i<5;i++){const x=170+i*5.4;box(.12,.12,3,M.violetGlow.clone(),x,.08,-1);}
+box(.4,.4,.4,M.redGlow.clone(),181,4.6,-2);
+blog('Zone props staged: crane rails · watchtowers · dish arrays · hazard signage','ok');
 
 /* ---------- ENEMIES · SENTINEL ORB SWARMS (orb.glb w/ energy-core fallback) ---------- */
 const enemies=[];
@@ -765,6 +1007,7 @@ function setPlayerOpacity(o){modelBox.traverse(n=>{if(n.isMesh&&n.material){n.ma
    Skinned-safe bounds (bind-pose geometry boxes, not raw Box3) + configurable yaw fix. */
 buildProceduralNinja();
 let runOnly=false;
+let ninjaPreviewSource=null;
 function probeNinja(){ensureLoader(ok=>{
   if(!ok){blog('No loader — procedural SYM-13 holds','warn');bpct(95);return;}
   blog('Probing ninja.glb …');
@@ -798,6 +1041,8 @@ function probeNinja(){ensureLoader(ok=>{
       while(modelBox.children.length)modelBox.remove(modelBox.children[0]); /* drop placeholder */
       procParts=null;
       modelBox.add(mdl);
+      ninjaPreviewSource=mdl.clone(true);
+      if(typeof refreshBioSubject==='function')refreshBioSubject();
       if(gltf.animations&&gltf.animations.length){
         mixer=new THREE.AnimationMixer(mdl);
         gltf.animations.forEach(c=>{const n=c.name.toLowerCase();
@@ -848,6 +1093,8 @@ function hurtPlayer(dmg,kx){
   sfx.hurt();shake(.25,.3);
   if(player.hp<=0){player.hp=0;player.dead=true;
     burst(player.x,player.y+1,COL.cyan,40,7,4,1);sfx.kill();
+    if(ostEl)fadeAudio(ostEl,0,1.5);
+    document.getElementById('loseStats').innerHTML=tallyRows(computeScore());
     setTimeout(()=>{document.getElementById('lose').style.display='flex';},900);}
   updateVitals();}
 function damageEnemy(e,dmg,silent){
@@ -884,13 +1131,41 @@ function updateStatus(){
     if(e.state==='SUSPICIOUS')s='SUS';}
   if(s==='CALM')hud.status.textContent=player.hidden?'CONCEALED':'UNDETECTED';
   if(s===globalAlert)return;
-  if(s==='HOT'&&globalAlert!=='HOT')sfx.alarm();
+  if(s==='HOT'&&globalAlert!=='HOT'){sfx.alarm();detections++;}
   globalAlert=s;
   hud.status.className='hpanel'+(s==='HOT'?' hot':(s==='SUS'?' sus':''));
   hud.status.textContent=s==='HOT'?'⚠ COMPROMISED':(s==='SUS'?'SUSPICIOUS ACTIVITY':(player.hidden?'CONCEALED':'UNDETECTED'));}
 
 /* ---------- INTERACTION SCAN ---------- */
 let killsN=0,intelN=0,curInteract=null;
+
+/* ---------- SCORE TALLY ---------- */
+let missionStartT=0,detections=0,lastGlobalAlert='CALM';
+function fmtTime(s){s=Math.max(0,Math.round(s));const m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
+function computeScore(){
+  const elapsed=missionStartT?((performance.now()-missionStartT)/1000):0;
+  const killScore=killsN*150, intelScore=intelN*400;
+  const timeBonus=Math.max(0,Math.round(600-elapsed*2));
+  const detectPenalty=detections*120;
+  const hpBonus=Math.round(player.hp*3);
+  const total=Math.max(0,killScore+intelScore+timeBonus+hpBonus-detectPenalty);
+  return {elapsed,killScore,intelScore,timeBonus,detectPenalty,hpBonus,total};
+}
+function tallyRows(s){
+  return '<div class="trow"><span>HOSTILES NEUTRALIZED</span><span>'+killsN+' × 150 = '+s.killScore+'</span></div>'+
+    '<div class="trow"><span>INTEL FRAGMENTS</span><span>'+intelN+' × 400 = '+s.intelScore+'</span></div>'+
+    '<div class="trow"><span>MISSION TIME</span><span>'+fmtTime(s.elapsed)+' · +'+s.timeBonus+'</span></div>'+
+    '<div class="trow"><span>INTEGRITY REMAINING</span><span>'+Math.round(player.hp)+'% · +'+s.hpBonus+'</span></div>'+
+    '<div class="trow"><span>TIMES COMPROMISED</span><span>'+detections+' × −120 = −'+s.detectPenalty+'</span></div>'+
+    '<div class="trow total"><span>FINAL SCORE</span><span>'+s.total+'</span></div>';}
+let zoneTallyT=0;
+function showZoneTally(headline){
+  const s=computeScore();
+  const el=document.getElementById('zoneTally');
+  el.querySelector('.zthead').textContent=headline;
+  document.getElementById('zoneTallyBody').innerHTML=tallyRows(s);
+  el.classList.add('show');zoneTallyT=3.4;}
+function tickZoneTally(dt){if(zoneTallyT>0){zoneTallyT-=dt;if(zoneTallyT<=0)document.getElementById('zoneTally').classList.remove('show');}}
 function scanInteract(){
   curInteract=null;let label='',kill=false;
   /* stealth takedown: crouch-approach an unaware android from behind */
@@ -927,7 +1202,7 @@ function doInteract(){
     o.text='DOWNLOAD INTEL ('+intelN+'/2)';
     if(intelN>=o.need){o.done=true;
       const ext=doors.find(d=>d.id==='EXT');if(ext){ext.open=true;sfx.door();}
-      toast('EXTRACTION GATE UNLOCKED','var(--amber)');}
+      toast('EXTRACTION GATE UNLOCKED','var(--amber)');showZoneTally('MISSION LOG · INTEL SECURED');}
     else toast('INTEL FRAGMENT SECURED','var(--violet)');
     drawObjectives();}}
 
@@ -1035,6 +1310,7 @@ function update(dt){
   perf+=dt;
   pollKeys();pollTouch();
   if(toastT>0){toastT-=dt;if(toastT<=0)hud.toast.style.opacity=0;}
+  tickZoneTally(dt);
 
   if(!player.dead){
     /* ----- movement ----- */
@@ -1164,14 +1440,16 @@ function update(dt){
   for(const c of crates)if(!c.dead&&c.mesh.userData.lamp)c.mesh.userData.lamp.material.emissiveIntensity=1.2+Math.sin(perf*5+c.x)*.6;
 
   /* objectives triggers */
-  if(!objectives[0].done&&player.x>35){completeObj('infil');toast('BLACKSITE 09 BREACHED','var(--cyan)');}
+  if(!objectives[0].done&&player.x>35){completeObj('infil');toast('BLACKSITE 09 BREACHED','var(--cyan)');showZoneTally('MISSION LOG · INFILTRATION');}
   if(objectives[1].done&&!objectives[2].done&&player.x>189){
     completeObj('extract');sfx.win();missionOver=true;
-    document.getElementById('winStats').textContent='HOSTILES NEUTRALIZED: '+killsN+' · INTEL: '+intelN+'/2 · INTEGRITY: '+Math.round(player.hp)+'%';
+    if(ostEl)fadeAudio(ostEl,0,1.2);
+    document.getElementById('winStats').innerHTML=tallyRows(computeScore());
     setTimeout(()=>document.getElementById('win').style.display='flex',600);}
 
   scanInteract();
   updZone(dt);
+  updAtmosphere(dt);
 
   /* ----- player rig visuals ----- */
   rig.position.set(player.x,player.y,0);
@@ -1236,7 +1514,113 @@ function frame(ts){
   renderer.render(scene,camera);}
 requestAnimationFrame(frame);
 
-/* ---------- DEPLOY ---------- */
+/* ---------- SOUNDTRACK (shadow.mp3, placed beside this HTML) ---------- */
+const ostEl=document.getElementById('ost');
+(function probeOST(){
+  const names=['shadow.mp3','Shadow.mp3','SHADOW.mp3'];
+  (function tryNext(i){
+    if(i>=names.length){blog('shadow.mp3 not found beside HTML — soundtrack silent','warn');return;}
+    ostEl.src=names[i];
+    ostEl.oncanplaythrough=()=>{blog('Soundtrack online: '+names[i],'ok');ostEl.oncanplaythrough=null;};
+    ostEl.onerror=()=>tryNext(i+1);
+  })(0);
+})();
+function fadeAudio(el,target,dur){
+  const start=el.volume,t0=performance.now();
+  (function step(){
+    const p=Math.min(1,(performance.now()-t0)/((dur||1)*1000));
+    el.volume=start+(target-start)*p;
+    if(p<1)requestAnimationFrame(step);else if(target<=0)el.pause();
+  })();}
+let musicOn=true;
+const musicBtn=document.getElementById('musicBtn');
+musicBtn.addEventListener('click',()=>{
+  musicOn=!musicOn;musicBtn.classList.toggle('on',musicOn);
+  if(musicOn){ostEl.play().catch(()=>{});fadeAudio(ostEl,0.42,.6);}else fadeAudio(ostEl,0,.6);});
+
+/* ---------- FIELD FOOTAGE PREVIEW (shadow.mp4, placed beside this HTML) ---------- */
+(function probeVideo(){
+  const vid=document.getElementById('previewVid');
+  const names=['shadow.mp4','Shadow.mp4','SHADOW.mp4'];
+  (function tryNext(i){
+    if(i>=names.length){
+      const wrap=document.getElementById('vidPreview');
+      const miss=document.createElement('div');miss.className='vidmiss';
+      miss.textContent='NO FEED · shadow.mp4 not found beside index.html';
+      wrap.appendChild(miss);blog('shadow.mp4 not found — field footage offline','warn');return;}
+    vid.src=names[i];
+    vid.oncanplay=()=>{vid.play().catch(()=>{});blog('Field footage online: '+names[i],'ok');};
+    vid.onerror=()=>tryNext(i+1);
+  })(0);
+})();
+
+/* ---------- ASSET BIO 3D PREVIEW (ninja.glb, or procedural fallback) ---------- */
+let bioRenderer=null,bioScene=null,bioCamera=null,bioSubject=null,bioInited=false;
+function makeBioFallback(){
+  const g=new THREE.Group();
+  const chrome=mat(0x0c0f13,0x000000,0,.4);chrome.metalness=.85;
+  const vein=M.cyanGlow.clone();
+  const torso=new THREE.Mesh(BOX,chrome);torso.scale.set(.5,.62,.34);torso.position.y=1.12;
+  const hips=new THREE.Mesh(BOX,chrome);hips.scale.set(.44,.24,.3);hips.position.y=.76;
+  const head=new THREE.Mesh(BOX,chrome);head.scale.set(.32,.32,.34);head.position.y=1.66;
+  const eyes=new THREE.Mesh(BOX,vein);eyes.scale.set(.26,.05,.08);eyes.position.set(0,1.7,.16);
+  const armL=new THREE.Mesh(BOX,chrome);armL.scale.set(.14,.58,.14);armL.position.set(-.34,1.14,0);
+  const armR=armL.clone();armR.position.x=.34;
+  const legL=new THREE.Mesh(BOX,chrome);legL.scale.set(.17,.68,.17);legL.position.set(-.14,.34,0);
+  const legR=legL.clone();legR.position.x=.14;
+  const katana=new THREE.Mesh(BOX,M.amberGlow.clone());katana.scale.set(.06,1.1,.06);
+  katana.position.set(0,1.3,-.24);katana.rotation.z=.6;
+  g.add(torso,hips,head,eyes,armL,armR,legL,legR,katana);
+  return g;}
+function refreshBioSubject(){
+  if(!bioSubject)return;
+  while(bioSubject.children.length)bioSubject.remove(bioSubject.children[0]);
+  const holder=new THREE.Group();
+  if(ninjaPreviewSource){holder.add(ninjaPreviewSource.clone(true));
+    document.getElementById('bioTag').textContent='LIVE CHASSIS SCAN // ninja.glb bound';}
+  else{holder.add(makeBioFallback());
+    document.getElementById('bioTag').textContent='LIVE CHASSIS SCAN // procedural fallback (ninja.glb pending)';}
+  holder.updateMatrixWorld(true);
+  const bb=new THREE.Box3().setFromObject(holder);
+  const size=new THREE.Vector3();bb.getSize(size);
+  const center=new THREE.Vector3();bb.getCenter(center);
+  holder.position.x-=center.x;holder.position.y-=bb.min.y;
+  bioSubject.add(holder);
+  const camY=size.y*0.55,camDist=Math.max(2.2,size.y*1.85);
+  bioCamera.position.set(0,camY,camDist);bioCamera.lookAt(0,camY*0.82,0);}
+function initBioPreview(){
+  if(bioInited)return;bioInited=true;
+  const wrap=document.getElementById('bioCanvasWrap');
+  const c=document.createElement('canvas');wrap.insertBefore(c,wrap.firstChild);
+  bioRenderer=new THREE.WebGLRenderer({canvas:c,antialias:true,alpha:true});
+  bioRenderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  bioRenderer.outputEncoding=THREE.sRGBEncoding;
+  bioScene=new THREE.Scene();
+  bioCamera=new THREE.PerspectiveCamera(38,1,.1,20);
+  bioScene.add(new THREE.HemisphereLight(0x6fd8d0,0x0a0c10,1.15));
+  const kl=new THREE.DirectionalLight(0x9fb8ff,1.15);kl.position.set(-2,4,3);bioScene.add(kl);
+  const rl=new THREE.DirectionalLight(0xb26bff,.55);rl.position.set(3,2,-2);bioScene.add(rl);
+  bioSubject=new THREE.Group();bioScene.add(bioSubject);
+  refreshBioSubject();
+  function sizeBio(){const w=wrap.clientWidth,h=wrap.clientHeight;if(!w||!h)return;
+    bioRenderer.setSize(w,h);bioCamera.aspect=w/h;bioCamera.updateProjectionMatrix();}
+  sizeBio();addEventListener('resize',sizeBio);
+  (function loop(){requestAnimationFrame(loop);
+    bioSubject.rotation.y+=0.011;
+    if(bioRenderer)bioRenderer.render(bioScene,bioCamera);})();}
+
+/* ---------- DOSSIER TABS ---------- */
+document.querySelectorAll('.dtab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.dtab').forEach(b=>b.classList.toggle('sel',b===btn));
+    document.querySelectorAll('.dpane').forEach(p=>p.classList.toggle('sel',p.getAttribute('data-p')===btn.getAttribute('data-t')));});});
+function fillTaskDossier(){
+  document.getElementById('taskList').innerHTML=objectives.map(o=>
+    '<li><b>'+o.text+'</b></li>').join('')+
+    '<li>Difficulty locked: <b>'+DIFF.label+'</b> — swarm sense ×'+DIFF.sense+', contact dmg '+DIFF.contact+'</li>'+
+    '<li>Traverse 4 hostile zones: perimeter fog, hangar smoke, irradiated ridge, electro-storm summit.</li>';}
+
+/* ---------- DEPLOY / DOSSIER / CONFIRM FLOW ---------- */
 bpct(88);
 blog('All systems nominal. Awaiting deployment.','ok');
 const deployBtn=document.getElementById('deploy');
@@ -1248,18 +1632,32 @@ deployBtn.style.display='block';
     btns[k].addEventListener('click',()=>{DIFF=DIFFS[k];
       for(const j in btns)if(btns[j])btns[j].className='diffbtn'+(j===k?' sel':'');});}
 })();
+/* Step 1: DEPLOY SYM-13 opens the asset dossier (bio / persona / skills / task briefing) */
 deployBtn.addEventListener('click',()=>{
-  audioInit();
-  if(actx&&actx.state==='suspended')actx.resume();
+  audioInit();if(actx&&actx.state==='suspended')actx.resume();
+  document.getElementById('boot').style.display='none';
+  document.getElementById('dossier').style.display='block';
+  fillTaskDossier();
+  initBioPreview();
+  sfx.terminal();});
+document.getElementById('dBack').addEventListener('click',()=>{
+  document.getElementById('dossier').style.display='none';
+  document.getElementById('boot').style.display='flex';});
+/* Step 2: CONFIRM DEPLOYMENT actually launches the mission */
+document.getElementById('confirmDeploy').addEventListener('click',()=>{
+  audioInit();if(actx&&actx.state==='suspended')actx.resume();
   /* stamp difficulty onto the swarm */
   for(const e of enemies){e.hp=DIFF.hp;e.senseR=e.baseSense*DIFF.sense;}
   blog('Difficulty locked: '+DIFF.label,'ok');
-  document.getElementById('boot').style.display='none';
+  document.getElementById('dossier').style.display='none';
   document.getElementById('hud').style.display='block';
-  started=true;lastTS=performance.now();
+  document.getElementById('musicBtn').style.display='block';
+  started=true;lastTS=performance.now();missionStartT=performance.now();
   updateVitals();
   toast(DIFF.label+' PROTOCOL · BREACH BLACKSITE 09','var(--cyan)');
-  sfx.terminal();});
+  sfx.terminal();
+  if(ostEl&&ostEl.src){ostEl.volume=0;ostEl.play().then(()=>fadeAudio(ostEl,0.42,1.4)).catch(()=>{});}
+  musicBtn.classList.add('on');});
 addEventListener('pointerdown',()=>{if(actx&&actx.state==='suspended')actx.resume();});
 bpct(100);
 })();
