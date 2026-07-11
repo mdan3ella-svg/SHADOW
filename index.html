@@ -187,6 +187,24 @@ renderer.toneMappingExposure=1.12;
 document.getElementById('stage').appendChild(renderer.domElement);
 blog('WebGL context acquired @ '+innerWidth+'x'+innerHeight+' ×'+pxr.toFixed(2),'ok');bpct(45);
 
+/* ---------- BOOT BACKDROP (shadow.jpg beside this HTML; jpb/png/webp variants probed too) ---------- */
+(function bootBackdrop(){
+  if(typeof Image==='undefined')return;
+  const names=['shadow.jpg','shadow.jpb','shadow.jpeg','shadow.png','shadow.webp'];
+  (function tryLoad(i){
+    if(i>=names.length){blog('shadow.jpg not found — gradient boot holds','warn');return;}
+    const img=new Image();
+    img.onload=()=>{
+      document.getElementById('boot').style.background=
+        'linear-gradient(rgba(4,6,8,.72),rgba(4,6,8,.9)),'+
+        'radial-gradient(1200px 600px at 50% 110%, rgba(79,209,197,.10), transparent 60%),'+
+        'url("'+names[i]+'") center/cover no-repeat #050608';
+      blog('Boot backdrop online: '+names[i],'ok');};
+    img.onerror=()=>tryLoad(i+1);
+    img.src=names[i];
+  })(0);
+})();
+
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0x070a12);
 scene.fog=new THREE.FogExp2(0x0a0e1a,0.028);
@@ -760,10 +778,10 @@ function wallAt(x,dir){ /* closed doors + level bounds act as walls */
   return null;}
 
 /* ---------- DAMAGE ---------- */
-let shakeT=0,shakeA=0;
+let shakeT=0,shakeA=0,missionOver=false;
 function shake(a,t){shakeA=Math.max(shakeA,a);shakeT=Math.max(shakeT,t);}
 function hurtPlayer(dmg,kx){
-  if(player.iT>0||player.dead)return;
+  if(player.iT>0||player.dead||missionOver)return;
   player.hp-=dmg;player.iT=.7;
   player.vx=6*(kx||-player.facing);player.vy=Math.max(player.vy,5);
   hud.flash.style.opacity=1;setTimeout(()=>hud.flash.style.opacity=0,180);
@@ -833,7 +851,7 @@ function doInteract(){
   const it=curInteract;
   if(it.type==='kill'){
     damageEnemy(it.e,999,true);
-    burst(it.e.g.position.x,1.2,COL.cyan,14,4,2,.6);
+    burst(it.e.g.position.x,it.e.g.position.y,COL.cyan,14,4,2,.6);
     toast('ORB NULLED','var(--cyan)');}
   else if(it.type==='switch'){
     it.s.used=true;it.s.light.material=M.cyanGlow;sfx.terminal();
@@ -1074,7 +1092,7 @@ function update(dt){
   /* objectives triggers */
   if(!objectives[0].done&&player.x>35){completeObj('infil');toast('BLACKSITE 09 BREACHED','var(--cyan)');}
   if(objectives[1].done&&!objectives[2].done&&player.x>189){
-    completeObj('extract');sfx.win();
+    completeObj('extract');sfx.win();missionOver=true;
     document.getElementById('winStats').textContent='HOSTILES NEUTRALIZED: '+killsN+' · INTEL: '+intelN+'/2 · INTEGRITY: '+Math.round(player.hp)+'%';
     setTimeout(()=>document.getElementById('win').style.display='flex',600);}
 
