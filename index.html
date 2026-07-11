@@ -171,6 +171,9 @@ const COL={void:0x050608,amber:0xff7a1a,cyan:0x4fd1c5,red:0xff2d3a,violet:0xb26b
 const GRAV=-34, PLAYER_H=1.8;
 /* Mixamo rigs face +Z → 0. Blender -Y forward exports → Math.PI (the classic fix). */
 const NINJA_YAW_FIX=0;
+/* Androids stand ~1.9u (head top). Ninja is scaled to match via skeleton height.
+   Nudge NINJA_SCALE_TWEAK (e.g. 0.95 or 1.05) if your export still reads off. */
+const NINJA_TARGET_H=1.9, NINJA_SCALE_TWEAK=1.0;
 const isTouch=('ontouchstart'in window)||navigator.maxTouchPoints>0;
 
 /* ---------- RENDERER / SCENE ---------- */
@@ -691,8 +694,18 @@ function probeNinja(){
         bb.union(n.geometry.boundingBox.clone().applyMatrix4(n.matrixWorld));any=true;}});
       if(!any)bb.setFromObject(mdl);
       const size=new THREE.Vector3();bb.getSize(size);
+      /* true body height from the rig: feet → head-top bone. This ignores swords,
+         scarves and stride geometry that inflate the bbox and shrink the character. */
+      let bodyH=size.y,headBone=null,topBone=true;
+      mdl.traverse(n=>{if(!headBone&&/headtop|head_end|headend/i.test(n.name||''))headBone=n;});
+      if(!headBone){topBone=false;
+        mdl.traverse(n=>{if(!headBone&&n.isBone&&/(^|:)head$/i.test(n.name||''))headBone=n;});}
+      if(headBone){const hp=new THREE.Vector3();headBone.getWorldPosition(hp);
+        let h=hp.y-bb.min.y;
+        if(!topBone)h*=1.09; /* Head joint sits below the crown */
+        if(isFinite(h)&&h>0.2){bodyH=h;blog('Skeleton height read: '+h.toFixed(2)+'u via '+headBone.name,'ok');}}
       let s=1;
-      if(isFinite(size.y)&&size.y>0.001)s=PLAYER_H/size.y;
+      if(isFinite(bodyH)&&bodyH>0.001)s=(NINJA_TARGET_H/bodyH)*NINJA_SCALE_TWEAK;
       mdl.scale.setScalar(s);
       mdl.updateMatrixWorld(true);
       const bb2=new THREE.Box3().setFromObject(mdl);
